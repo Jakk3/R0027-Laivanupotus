@@ -7,8 +7,8 @@ public class Laivanupotus {
 		// declare variables and create a scanner
 		Scanner input = new Scanner(System.in);
 		int size = 10; // battle map size
-		int[]  shipLengths = { 1, 2, 3, 3, 4, 5 };
-		int shipCount = 6;
+		int[]  shipLengths = { 5, 4, 3, 3, 2, 1 };
+		int shipCount = shipLengths.length;
 		char[][] sea = new char[size][size];
 		char[][][] ships = new char[shipCount][size][size];
 
@@ -48,7 +48,6 @@ public class Laivanupotus {
 			// choosing random starting point and a direction for every ship
 			// checking if the ship would collide with another ship with the starting point and direction
 			do {
-				System.out.println("uudet randomit");
 				x = (int)(Math.random() * (size - 1));
 				y = (int)(Math.random() * (size - 1));
 				dir = (int)(Math.random() * 4);
@@ -88,8 +87,6 @@ public class Laivanupotus {
 				}
 			}
 			// change the x or y coordinate based on which direction the ship is build
-			System.out.println("shiplength " + shipLength);
-			System.out.println("x = " + x + " y = " + y);
 			switch (dir) {
 			case 0: // up
 				if (y > (shipLengths[i] - 1)) 
@@ -120,5 +117,4 @@ public class Laivanupotus {
 		// if there was no colliding coordinates, return false
 		return false;
 	}
-
 }
