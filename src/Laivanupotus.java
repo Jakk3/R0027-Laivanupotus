@@ -14,6 +14,7 @@ public class Laivanupotus {
 
 		ships = createShips(shipCount, shipLengths, size);
 		
+		/*
 		for (int c = 0; c < shipCount; c++) {
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
@@ -28,11 +29,12 @@ public class Laivanupotus {
 				if (sea[i][j] == '#') {
 					System.out.print("# \t");
 				} else {
-					System.out.print("~ \t");
+					System.out.print(". \t");
 				}
 			}
 			System.out.println();
 		}
+		*/
 		
 	}
 		
@@ -75,7 +77,6 @@ public class Laivanupotus {
 		}
 		return temp;
 	}
-	
 	
 	public static boolean checkCoordinates(int x, int y, int dir, int shipLength, int[] shipLengths, char[][][] temp, int shipIndex, int size) {
 		// going through ships created before the current ship
