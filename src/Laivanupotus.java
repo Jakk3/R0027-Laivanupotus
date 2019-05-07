@@ -14,6 +14,7 @@ public class Laivanupotus {
 
 		ships = createShips(shipCount, shipLengths, size);
 		
+		
 		/*
 		for (int c = 0; c < shipCount; c++) {
 		for (int i = 0; i < size; i++) {
@@ -33,12 +34,15 @@ public class Laivanupotus {
 				}
 			}
 			System.out.println();
-		}
-		*/
-		
+		} */
+
+		do {
+		sea = askCoordinates(ships, sea);
+		printSea(sea);
+		} while (shipChecker(ships, sea));
 	}
 		
-	
+	//Let's create the ships in a new method
 	public static char[][][] createShips(int shipCount, int[] shipLengths, int size) {
 		// declaring local variables 
 		int x, y, dir;
@@ -78,6 +82,7 @@ public class Laivanupotus {
 		return temp;
 	}
 	
+	//Let's check if the ship can be placed
 	public static boolean checkCoordinates(int x, int y, int dir, int shipLength, int[] shipLengths, char[][][] temp, int shipIndex, int size) {
 		// going through ships created before the current ship
 		for (int i = 0; i < shipLength; i++) {
@@ -118,4 +123,73 @@ public class Laivanupotus {
 		// if there was no colliding coordinates, return false
 		return false;
 	}
+	
+	//Let's start asking the player for coordinates
+	public static char[][] askCoordinates(char[][][] ships, char[][] sea) {
+		Scanner input = new Scanner(System.in);
+		int x;
+		int y;
+		
+		System.out.println("Where do you wanna shoot?");
+		do {
+			System.out.print("Give X: ");
+			x = input.nextInt() - 1;
+		} while (x < 0 || x > sea.length - 1);
+		// coz char starts at 0
+		// sea.length so we can later maybe change the map size
+		do {
+			System.out.print("Give Y: ");
+			y = input.nextInt() - 1;
+		} while (y < 0 || y > sea.length - 1);
+		
+	//Let's check the game map for hit or miss
+		
+		for (int i = 0; i < ships.length; i++) {
+			if (ships[i][y][x] == '#') {
+				sea[y][x] = '#';
+				return sea;
+				//If there is a hit for any ship then the loop ends
+			} else {
+				sea[y][x] = 'O';
+			}
+		}
+		return sea;		
+	}
+	
+	//Let's print the sea
+	public static void printSea(char[][] sea) {
+		for (int i = 0; i < sea.length; i++) {
+			for (int j = 0; j < sea.length; j++) {
+				if (sea[i][j] == '#')
+					System.out.print("# \t");
+				else if (sea[i][j] == 'O')
+					System.out.print("O \t");
+				else if (sea[i][j] == 'X')
+					System.out.print("X \t");
+				else 
+					System.out.print(". \t");
+			}
+			System.out.println();
+		}
+		
+	}
+		
+	//Let's check if all the ships have been sinked
+	public static boolean shipChecker(char[][][] ships, char[][] sea) {
+		int hitblocks = 0;
+		for(int i = 0; i < ships.length; i++) {
+			for (int j = 0; j < ships[i].length; j++) {
+				for(int k = 0; k < ships[i].length; k++) {
+					if (ships[i][j][k] == sea[j][k])
+						hitblocks++;
+				}
+			}
+		}
+		if (hitblocks == 18) 
+			return false;
+		else
+			return true;
+	}
+	
+	
 }
