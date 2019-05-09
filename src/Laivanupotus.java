@@ -37,8 +37,9 @@ public class Laivanupotus {
 		} */
 
 		do {
-		sea = askCoordinates(ships, sea);
 		printSea(sea);
+		sea = askCoordinates(ships, sea);
+		sea = shipSinker(ships, sea, shipLengths);
 		} while (shipChecker(ships, sea));
 	}
 		
@@ -147,12 +148,15 @@ public class Laivanupotus {
 		for (int i = 0; i < ships.length; i++) {
 			if (ships[i][y][x] == '#') {
 				sea[y][x] = '#';
+				System.out.println("You hit!");
 				return sea;
 				//If there is a hit for any ship then the loop ends
 			} else {
 				sea[y][x] = 'O';
 			}
 		}
+
+		System.out.println("You missed!");
 		return sea;		
 	}
 	
@@ -173,7 +177,37 @@ public class Laivanupotus {
 		}
 		
 	}
+	
+	public static char[][] shipSinker(char[][][] ships, char[][] sea, int[] shipLengths) {
+		int shipLength;
+		// compare the battle map to every ships location. for every location that matches
+		// add to the value of shown length of the ship. 
+		for (int i = 0; i < ships.length; i++) {
+			shipLength = 0;
+			for (int y = 0; y < sea.length; y++) {
+				for (int x = 0; x < sea[y].length; x++) {
+					if (ships[i][y][x] == sea[y][x] && sea[y][x] == '#') {
+						shipLength++;
+					}
+				}
+			}
+			// if the whole ship is on the battle map (every block of the ship is hit)
+			// change the ships shown blocks to X
+			if (shipLength == shipLengths[i]) {
+				for (int y = 0; y < sea.length; y++) {
+					for (int x = 0; x < sea[y].length; x++) {
+						if (ships[i][y][x] == sea[y][x] && sea[y][x] == '#') {
+							sea[y][x] = 'X';
+						}
+					}
+				}
+			}
+		}
 		
+		return sea;
+	}
+	
+
 	//Let's check if all the ships have been sinked
 	public static boolean shipChecker(char[][][] ships, char[][] sea) {
 		int hitblocks = 0;
