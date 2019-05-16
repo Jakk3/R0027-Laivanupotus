@@ -14,31 +14,10 @@ public class Laivanupotus {
 		int score = 0;
 
 		ships = createShips(shipCount, shipLengths, size);
-		
-		
-		/*
-		for (int c = 0; c < shipCount; c++) {
-		for (int i = 0; i < size; i++) {
-			for (int j = 0; j < size; j++) {
-				if (ships[c][i][j] == '#') {
-					sea[i][j] = '#';
-				}
-			}
-		}
-		}
-		for (int i = 0; i < size; i++) {
-			for (int j = 0; j < size; j++) {
-				if (sea[i][j] == '#') {
-					System.out.print("# \t");
-				} else {
-					System.out.print(". \t");
-				}
-			}
-			System.out.println();
-		} */
 
 		System.out.println("Another lonely Friday night? Let's play sink the ship vs. the computer!\n");
-		System.out.println("The sea chart is sized as " + size + " x " + size + " array. The game symbols are the following:\n");
+		System.out.println("The sea chart is sized as " + size + " x " + size + " array. The sizes of the ships are 5, 4, 3, 3, 2 and 1\n");
+		System.out.println("The game symbols are the following:\n");
 		System.out.println(". means the sea, O is a miss, # is a hit and X is a sunk ship. \n");
 		do {
 		System.out.println();
